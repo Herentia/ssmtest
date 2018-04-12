@@ -19,5 +19,11 @@
 	
 	<!-- 类型别名 -->
 	<typeAliases></typeAliases>
+	
+	<!-- 引入插件 -->
+	<plugins>
+		<!-- PageHelper分页插件 -->
+		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+	</plugins>
 
 </configuration>

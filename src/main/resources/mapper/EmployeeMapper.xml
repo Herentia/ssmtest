@@ -80,6 +80,7 @@
   <sql id="Base_Column_List">
     EMP_ID, EMP_NAME, GENDER, EMAIL, D_ID
   </sql>
+  
   <sql id="WithDept_Column_List">
   	e.EMP_ID, e.EMP_NAME, e.GENDER, e.EMAIL, e.D_ID, d.dept_id, d.dept_name
   </sql>
@@ -91,7 +92,7 @@
     </if>
     <include refid="WithDept_Column_List" />
     from TBL_EMP e 
-    left join tbl_dept d on e.d_id = d.id
+    left join tbl_dept d on e.d_id = d.dept_id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -107,8 +108,7 @@
     left join tbl_dept d on e.d_id = d.id
     where EMP_ID = #{empId,jdbcType=DECIMAL}
   </select>
-  
-  <!-- 查询员工不带部门信息 -->
+  <!-- 查询员工的时候不查询员工部门信息 -->
   <select id="selectByExample" parameterType="com.pb.bean.EmployeeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -123,13 +123,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from TBL_EMP
     where EMP_ID = #{empId,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from TBL_EMP
     where EMP_ID = #{empId,jdbcType=DECIMAL}
   </delete>

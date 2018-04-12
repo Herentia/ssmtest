@@ -18,6 +18,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+	<!-- =============================数据源配置========================================= -->
 	<!-- 引入数据库配置文件 -->
 	<context:property-placeholder location="classpath:dbconf.properties" />
 	
@@ -33,6 +34,7 @@
         <property name="maxIdleTime" value="${jdbc.maxIdleTime}" />  <!--最大空闲时间-->
 	</bean>
 	
+	<!-- ================================MyBatis配置========================================== -->
 	<!-- 配置和mybatis的整合 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 指定mybatis配置文件位置 -->
@@ -48,6 +50,13 @@
 		<property name="basePackage" value="com.pb.dao"></property>
 	</bean>
 	
+	<!-- 配置批量执行的sqlsession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg name="executorType" value="BATCH"></constructor-arg>
+	</bean>
+	
+	<!-- ==============================Spring事务配置=============================================== -->
 	<!-- 事务控制 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<!-- 控制事务源 -->

@@ -1,6 +1,5 @@
 package com.pb.bean;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,52 +114,52 @@ public class DepartmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdEqualTo(BigDecimal value) {
+        public Criteria andDeptIdEqualTo(Short value) {
             addCriterion("DEPT_ID =", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdNotEqualTo(BigDecimal value) {
+        public Criteria andDeptIdNotEqualTo(Short value) {
             addCriterion("DEPT_ID <>", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdGreaterThan(BigDecimal value) {
+        public Criteria andDeptIdGreaterThan(Short value) {
             addCriterion("DEPT_ID >", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andDeptIdGreaterThanOrEqualTo(Short value) {
             addCriterion("DEPT_ID >=", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdLessThan(BigDecimal value) {
+        public Criteria andDeptIdLessThan(Short value) {
             addCriterion("DEPT_ID <", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andDeptIdLessThanOrEqualTo(Short value) {
             addCriterion("DEPT_ID <=", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdIn(List<BigDecimal> values) {
+        public Criteria andDeptIdIn(List<Short> values) {
             addCriterion("DEPT_ID in", values, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdNotIn(List<BigDecimal> values) {
+        public Criteria andDeptIdNotIn(List<Short> values) {
             addCriterion("DEPT_ID not in", values, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDeptIdBetween(Short value1, Short value2) {
             addCriterion("DEPT_ID between", value1, value2, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptIdNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDeptIdNotBetween(Short value1, Short value2) {
             addCriterion("DEPT_ID not between", value1, value2, "deptId");
             return (Criteria) this;
         }

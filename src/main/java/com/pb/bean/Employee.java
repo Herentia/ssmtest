@@ -1,9 +1,7 @@
 package com.pb.bean;
 
-import java.math.BigDecimal;
-
 public class Employee {
-    private BigDecimal empId;
+    private Integer empId;
 
     private String empName;
 
@@ -11,16 +9,37 @@ public class Employee {
 
     private String email;
 
-    private BigDecimal dId;
+    private int dId;
     
-    //希望查询员工的时候将部门信息查出
     private Department department;
+    
+    public Employee() {
+		super();
+	}
+    
+	public Employee(String empName, String gender, String email, int dId) {
+		super();
+		this.empName = empName;
+		this.gender = gender;
+		this.email = email;
+		this.dId = dId;
+	}
 
-    public BigDecimal getEmpId() {
+	public Employee(Integer empId, String empName, String gender, String email,
+			int dId) {
+		super();
+		this.empId = empId;
+		this.empName = empName;
+		this.gender = gender;
+		this.email = email;
+		this.dId = dId;
+	}
+
+	public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(BigDecimal empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 
@@ -48,13 +67,13 @@ public class Employee {
         this.email = email == null ? null : email.trim();
     }
 
-    public BigDecimal getdId() {
-        return dId;
-    }
+	public int getdId() {
+		return dId;
+	}
 
-    public void setdId(BigDecimal dId) {
-        this.dId = dId;
-    }
+	public void setdId(int dId) {
+		this.dId = dId;
+	}
 
 	public Department getDepartment() {
 		return department;
@@ -64,11 +83,4 @@ public class Employee {
 		this.department = department;
 	}
 
-	@Override
-	public String toString() {
-		return "Employee [empId=" + empId + ", empName=" + empName
-				+ ", gender=" + gender + ", email=" + email + ", dId=" + dId
-				+ ", department=" + department + "]";
-	}
-    
 }

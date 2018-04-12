@@ -2,7 +2,6 @@ package com.pb.dao;
 
 import com.pb.bean.Department;
 import com.pb.bean.DepartmentExample;
-import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +10,7 @@ public interface DepartmentMapper {
 
     int deleteByExample(DepartmentExample example);
 
-    int deleteByPrimaryKey(BigDecimal deptId);
+    int deleteByPrimaryKey(Short deptId);
 
     int insert(Department record);
 
@@ -19,7 +18,7 @@ public interface DepartmentMapper {
 
     List<Department> selectByExample(DepartmentExample example);
 
-    Department selectByPrimaryKey(BigDecimal deptId);
+    Department selectByPrimaryKey(Short deptId);
 
     int updateByExampleSelective(@Param("record") Department record, @Param("example") DepartmentExample example);
 

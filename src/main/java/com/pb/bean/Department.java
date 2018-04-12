@@ -1,21 +1,29 @@
 package com.pb.bean;
 
-import java.math.BigDecimal;
-
 public class Department {
-    private BigDecimal deptId;
+    private Integer deptId;
 
     private String deptName;
 
-    public BigDecimal getDeptId() {
-        return deptId;
-    }
+    public Department() {
+		super();
+	}
+    
+	public Department(Integer deptId, String deptName) {
+		super();
+		this.deptId = deptId;
+		this.deptName = deptName;
+	}
 
-    public void setDeptId(BigDecimal deptId) {
-        this.deptId = deptId;
-    }
+	public Integer getDeptId() {
+		return deptId;
+	}
 
-    public String getDeptName() {
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
+
+	public String getDeptName() {
         return deptName;
     }
 

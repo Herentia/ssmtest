@@ -2,7 +2,6 @@ package com.pb.dao;
 
 import com.pb.bean.Employee;
 import com.pb.bean.EmployeeExample;
-import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +10,7 @@ public interface EmployeeMapper {
 
     int deleteByExample(EmployeeExample example);
 
-    int deleteByPrimaryKey(BigDecimal empId);
+    int deleteByPrimaryKey(Integer empId);
 
     int insert(Employee record);
 
@@ -19,11 +18,10 @@ public interface EmployeeMapper {
 
     List<Employee> selectByExample(EmployeeExample example);
 
-    Employee selectByPrimaryKey(BigDecimal empId);
-    
+    Employee selectByPrimaryKey(Integer empId);
+    //查询员工时连带部门信息一起查出
     List<Employee> selectByExampleWithDept(EmployeeExample example);
-
-    Employee selectByPrimaryKeyWithDept(BigDecimal empId);
+    Employee selectByPrimaryKeyWithDept(Integer empId);
 
     int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
 

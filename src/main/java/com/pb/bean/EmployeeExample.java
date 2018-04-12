@@ -1,6 +1,5 @@
 package com.pb.bean;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,52 +114,52 @@ public class EmployeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdEqualTo(BigDecimal value) {
+        public Criteria andEmpIdEqualTo(Integer value) {
             addCriterion("EMP_ID =", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotEqualTo(BigDecimal value) {
+        public Criteria andEmpIdNotEqualTo(Integer value) {
             addCriterion("EMP_ID <>", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdGreaterThan(BigDecimal value) {
+        public Criteria andEmpIdGreaterThan(Integer value) {
             addCriterion("EMP_ID >", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andEmpIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("EMP_ID >=", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdLessThan(BigDecimal value) {
+        public Criteria andEmpIdLessThan(Integer value) {
             addCriterion("EMP_ID <", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andEmpIdLessThanOrEqualTo(Integer value) {
             addCriterion("EMP_ID <=", value, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdIn(List<BigDecimal> values) {
+        public Criteria andEmpIdIn(List<Integer> values) {
             addCriterion("EMP_ID in", values, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotIn(List<BigDecimal> values) {
+        public Criteria andEmpIdNotIn(List<Integer> values) {
             addCriterion("EMP_ID not in", values, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andEmpIdBetween(Integer value1, Integer value2) {
             addCriterion("EMP_ID between", value1, value2, "empId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpIdNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andEmpIdNotBetween(Integer value1, Integer value2) {
             addCriterion("EMP_ID not between", value1, value2, "empId");
             return (Criteria) this;
         }
@@ -385,52 +384,52 @@ public class EmployeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andDIdEqualTo(BigDecimal value) {
+        public Criteria andDIdEqualTo(Short value) {
             addCriterion("D_ID =", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdNotEqualTo(BigDecimal value) {
+        public Criteria andDIdNotEqualTo(Short value) {
             addCriterion("D_ID <>", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdGreaterThan(BigDecimal value) {
+        public Criteria andDIdGreaterThan(Short value) {
             addCriterion("D_ID >", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andDIdGreaterThanOrEqualTo(Short value) {
             addCriterion("D_ID >=", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdLessThan(BigDecimal value) {
+        public Criteria andDIdLessThan(Short value) {
             addCriterion("D_ID <", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andDIdLessThanOrEqualTo(Short value) {
             addCriterion("D_ID <=", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdIn(List<BigDecimal> values) {
+        public Criteria andDIdIn(List<Short> values) {
             addCriterion("D_ID in", values, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdNotIn(List<BigDecimal> values) {
+        public Criteria andDIdNotIn(List<Short> values) {
             addCriterion("D_ID not in", values, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDIdBetween(Short value1, Short value2) {
             addCriterion("D_ID between", value1, value2, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDIdNotBetween(Short value1, Short value2) {
             addCriterion("D_ID not between", value1, value2, "dId");
             return (Criteria) this;
         }
