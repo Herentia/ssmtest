@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- mybatis全局配置 -->
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- 默认为OTHER，Oracle不支持为null时值是other -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<!-- 开启懒加载 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!-- 开启全局 二级缓存 -->
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+	
+	<!-- 类型别名 -->
+	<typeAliases></typeAliases>
+
+</configuration>
