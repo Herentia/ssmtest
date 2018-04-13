@@ -23,7 +23,10 @@
 	<!-- 引入插件 -->
 	<plugins>
 		<!-- PageHelper分页插件 -->
-		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!-- 分页参数合理化 -->
+			<property name="reasonable" value="true"/>
+		</plugin>
 	</plugins>
 
 </configuration>

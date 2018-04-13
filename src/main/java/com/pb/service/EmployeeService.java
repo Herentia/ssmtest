@@ -20,6 +20,11 @@ public class EmployeeService {
 	 */
 	public List<Employee> getAll() {
 		return empmapper.selectByExampleWithDept(null);
-	} 
-
+	}
+	
+	//±£¥Ê‘±π§
+	public void saveEmp(Employee emp) {
+		empmapper.insertSelective(emp);
+	}
+	
 }
