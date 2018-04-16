@@ -1,10 +1,15 @@
 package com.pb.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,11 +70,42 @@ public class EmployeeController {
 		return "list";
 	}
 	
+	/**
+	 * 验证用户名
+	 * @param empName
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/checkuser")
+	public Msg checkUser(@RequestParam("empName") String empName) {
+		boolean b = empService.checkUser(empName);
+		String regName = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u4e00-\u9fa5]{2,5}$)";
+		if(!empName.matches(regName))
+			return Msg.error().add("va_msg", "用户名为2-5为中文或者6-16位英文");
+		if(b) {
+			return Msg.success();
+		} else {
+			return Msg.error().add("va_msg", "用户名不可用");
+		}
+	}
+	
+	/**
+	 * 保存员工
+	 * @param employee
+	 * @return
+	 */
 	@RequestMapping(value="/emp", method=RequestMethod.POST)
 	@ResponseBody
-	public Msg saveEmp(Employee employee) {
-		empService.saveEmp(employee);
-		return Msg.success();
+	public Msg saveEmp(@Valid Employee employee, Errors errors, Map<String, String> map) {
+		if(errors.hasErrors()) {
+			for (FieldError error : errors.getFieldErrors()) {
+				map.put(error.getField(), error.getDefaultMessage());
+			}
+			return Msg.error().add("errorFields", map);
+		} else {
+			empService.saveEmp(employee);
+			return Msg.success();
+		}
 	}
 
 }
