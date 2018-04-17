@@ -38,4 +38,36 @@ public class EmployeeService {
 		empmapper.insertSelective(emp);
 	}
 	
+	//查询选中员工信息
+	public Employee getEmpById(Integer empId) {
+		return empmapper.selectByPrimaryKey(empId);
+	}
+
+	/**
+	 * 更新员工信息
+	 * @param employee 需要更的员工对象
+	 */
+	public void updateEmp(Employee employee) {
+		empmapper.updateByPrimaryKeySelective(employee);//按照主键有选择的更新
+	}
+	
+	/**
+	 * 删除单个用户
+	 * @param id
+	 */
+	public void delEmp(Integer id) {
+		empmapper.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 删除多个用户
+	 * @param ids
+	 */
+	public void delBatch(List<Integer> ids) {
+		EmployeeExample example = new EmployeeExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andEmpIdIn(ids);
+		empmapper.deleteByExample(example);
+	}
+	
 }

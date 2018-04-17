@@ -25,8 +25,7 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">empName</label>
 			    <div class="col-sm-10">
-			      <input type="text" name="empName" class="form-control" id="empName_update" placeholder="姓名">
-			      <span class="help-block"></span>
+			      <p class="form-control-static" id="empName_update"></p>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -58,7 +57,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	        <button type="button" class="btn btn-primary" id="emp_save">保存</button>
+	        <button type="button" class="btn btn-primary" id="emp_update">更新</button>
 	      </div>
 	    </div>
 	  </div>
@@ -129,7 +128,7 @@
 		<div class="row">
 			<div class="col-md-4 col-md-offset-8">
 				<button type="button" class="btn btn-success" id="emp_add_modal_btn">新增</button>
-				<button type="button" class="btn btn-danger">删除</button>
+				<button type="button" class="btn btn-danger" id="emp_del_modal_btn">删除</button>
 			</div>
 		</div>
 		<!-- 显示表格数据 -->
@@ -138,6 +137,9 @@
 				<table class="table table-hover" id="emps_table">
 					<thead>
 						<tr>
+							<th>
+								<input type="checkbox" id="check_all" />
+							</th>
 							<th>#</th>
 							<th>name</th>
 							<th>gender</th>
@@ -162,6 +164,7 @@
 	</div>
 	<script type="text/javascript">
 		var totalRecord;//总记录数
+		var currentPage;//当前页
 		//1、页面加载完成后ajax请求获取数据
 		$(function() {
 			to_page(1);
@@ -191,6 +194,7 @@
 			$("#emps_table tbody").empty();
 			var emps = result.extend.pageInfo.list;
 			$.each(emps, function(index, item) {
+				var checkBoxTd = $("<td><input type='checkbox' class='check_item' /></td>")
 				var empIdTd = $("<td></td>").append(item.empId);
 				var empNameTd = $("<td></td>").append(item.empName);
 				var genderTd = $("<td></td>").append(item.gender == "M" ? "男" : "女");
@@ -200,14 +204,18 @@
 				var eitrBtn = $("<button></button>").addClass("btn btn-primary btn-xs edit_btn")
 								.append($("<span></span>").addClass("glyphicon glyphicon-pencil"))
 								.append("编辑");
+				//为编辑按钮添加一个自定义属性，来标识员工ID
+				eitrBtn.attr("edit_id", item.empId);
 				var delBtn = $("<button></button>").addClass("btn btn-danger btn-xs del_btn")
 								.append($("<span></span>").addClass("glyphicon glyphicon-trash"))
 								.append("删除");
+				delBtn.attr("del_id", item.empId);
 				var btnTd = $("<td></td>").append(eitrBtn)
 											.append(" | ")
-											.append(delBtn)
+											.append(delBtn);
 				//append方法执行完成以后还是返回定义的元素
-				$("<tr></tr>").append(empIdTd)
+				$("<tr></tr>").append(checkBoxTd)
+					.append(empIdTd)
 					.append(empNameTd)
 					.append(genderTd)
 					.append(emailTd)
@@ -224,6 +232,7 @@
 					+ result.extend.pageInfo.pages + "-页，总记录数-" 
 					+ result.extend.pageInfo.total + "-条记录")
 			totalRecord = result.extend.pageInfo.total;
+			currentPage = result.extend.pageInfo.pageNum;
 		}
 		
 		//显示分页条
@@ -359,7 +368,8 @@
 		
 		//姓名文本框发生改变时发送ajax请求验证姓名
 		$("#empName_add").change(function() {
-			var empName = this.value;
+			//var empName = this.value;    //当前#empName_add的dom属性，可以直接通过.value获取值
+			var empName = $(this).val();   //jquery获取的#empName_add属性的数组，$(this)[0] = this
 			$.ajax({
 				url: "checkuser",
 				type: "post",
@@ -421,6 +431,9 @@
 		//增加编辑按钮事件
 		$(document).on("click", ".edit_btn", function(){
 			//1、获取员工信息，显示员工信息
+			getEmp($(this).attr("edit_id"));
+			//将员工的ID传递给更新按钮
+			$("#emp_update").attr("edit_id", $(this).attr("edit_id"));
 			//2、获取部门信息，显示部门信息
 			getDepts("#dept_update");
 			//3、弹出状态框
@@ -428,6 +441,102 @@
 				backdrop: "static"
 			})
 		})
+		
+		//获取回显员工信息
+		function getEmp(id) {
+			$.ajax({
+				url: "editEmp/" + id,
+				type: "get",
+				success: function(result) {
+					var result = eval("(" + result + ")");
+					console.log(result);
+					var empData = result.extend.emp;
+					$("#empName_update").text(empData.empName);
+					$("#email_update").val(empData.email);
+					$("#empUpdateModal input[name='gender']").val([empData.gender]);//单选框选中
+					$("#empUpdateModal select").val([empData.dId]);//下拉框选中
+				}
+			});
+		}
+		
+		//点击更新, 更新员工信息
+		$("#emp_update").click(function() {
+			//邮箱验证
+			var email = $("#email_update").val();
+			var regEmail = 	/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if(!regEmail.test(email)) {
+				//邮箱不正确
+				show_validate_msg("#email_update", "error", "邮箱格式不正确");
+				return false;
+			} else {
+				show_validate_msg("#email_update", "success", "");
+			}
+			//发送ajax更新员工信息
+			$.ajax({
+				url: "editEmp/" + $(this).attr("edit_id"),
+				type: "post",
+				data: $("#empUpdateModal form").serialize() + "&_method=put",
+				success: function(result) {
+					var result = eval("(" + result + ")");
+					//alert(result.msg);
+					//关闭模态框
+					$("#empUpdateModal").modal("hide");
+					//刷新当前页面
+					to_page(currentPage);
+				}
+			});
+		});
+		
+		//给删除按钮绑定click事件
+		$(document).on("click", ".del_btn", function() {
+			//弹出是否确认删除对话框
+			var empName = $(this).parents("tr").find("td:eq(2)").text();
+			if(confirm("确认删除【" + empName + "】吗？")) {
+				//确认发送ajax请求删除
+				$.ajax({
+					url: "emp/" + $(this).attr("del_id"),
+					type: "delete",
+					success: function(result) {
+						to_page(currentPage);
+					}
+				})
+			}
+		});
+		
+		//完成全选全不选功能
+		$("#check_all").click(function() {
+			//prop修改读取dom原生属性的值
+			$(".check_item").prop("checked", $(this).prop("checked"));
+		});
+		//check_item
+		$(document).on("click", ".check_item", function() {
+			//判断当前选中的元素是否是五个，是五个则√上check_all
+			var flag = $(".check_item:checked").length == $(".check_item").length;
+			$("#check_all").prop("checked", flag);
+		});
+		
+		//删除多个用户记录
+		$("#emp_del_modal_btn").click(function() {
+			var empNames = "";
+			var empIds = "";
+			$.each($(".check_item:checked"), function() {
+				empNames += $(this).parents("tr").find("td:eq(2)").text() + ",";
+				//组装员工id字符串
+				empIds += $(this).parents("tr").find("td:eq(1)").text() + "-";
+			});
+			empNames = empNames.substring(0, empNames.length - 1);
+			empIds = empIds.substring(0, empIds.length - 1);
+			if(confirm("确认删除【" + empNames + "】")) {
+				$.ajax({
+					url: "emp/" + empIds,
+					type: "delete",
+					success: function(result) {
+						to_page(currentPage);
+					}
+				});
+			}
+		});
+		
 		
 	</script>
 </body>

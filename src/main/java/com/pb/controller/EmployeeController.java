@@ -1,5 +1,6 @@
 package com.pb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,9 +36,8 @@ public class EmployeeController {
 	private EmployeeService empService;
 	
 	/**
-	 * 导入json包
-	 * @param pn
-	 * @param model
+	 * 导入json包, 返回页面信息
+	 * @param pn 当前页
 	 * @return
 	 */
 	@RequestMapping("/emps")
@@ -106,6 +107,50 @@ public class EmployeeController {
 			empService.saveEmp(employee);
 			return Msg.success();
 		}
+	}
+	
+	/**
+	 * 通过ID获取需要修改 的用户信息
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/editEmp/{id}", method=RequestMethod.GET)
+	public Msg getEmpById(@PathVariable("id") Integer empId) {
+		Employee emp = empService.getEmpById(empId);
+		return Msg.success().add("emp", emp);
+	}
+	/**
+	 * 修改用户
+	 * @param employee 需要修改用户对象
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/editEmp/{empId}", method=RequestMethod.PUT)
+	public Msg editEmp(Employee employee) {
+		empService.updateEmp(employee);
+		return Msg.success();
+	}
+	
+	/**
+	 * 通过ID删除单个用户---改为传入字符串使单个和多个删除都可以执行
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/emp/{ids}", method=RequestMethod.DELETE)
+	public Msg delEmpById(@PathVariable("ids") String ids) {
+		if(ids.contains("-")) {
+			List<Integer> list = new ArrayList<Integer>();
+			String[] str_ids = ids.split("-");
+			for (String string : str_ids) {
+				list.add(Integer.parseInt(string));
+			}
+			empService.delBatch(list);
+		} else {
+			Integer id = Integer.parseInt(ids);
+			empService.delEmp(id);
+		}
+		return Msg.success();
 	}
 
 }
