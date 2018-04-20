@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pb.bean.Employee;
 import com.pb.bean.EmployeeExample;
 import com.pb.bean.EmployeeExample.Criteria;
+import com.pb.bean.User;
 import com.pb.dao.EmployeeMapper;
 
 @Service
@@ -15,6 +16,13 @@ public class EmployeeService {
 	
 	@Autowired
 	private EmployeeMapper empmapper;
+	
+	/**
+	 * 测试切换动态切换到第二个数据库
+	 */
+	public User getUserByData2() {
+		return empmapper.getUserByData2();
+	}
 	
 	/**
 	 * 查询所有员工信息

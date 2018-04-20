@@ -18,6 +18,9 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+	<!-- 启动Aspectj支持 -->
+	<aop:aspectj-autoproxy />
+		
 	<!-- =============================数据源配置========================================= -->
 	<!-- 引入数据库配置文件 -->
 	<context:property-placeholder location="classpath:dbconf.properties" />
@@ -33,13 +36,34 @@
         <property name="initialPoolSize" value="${jdbc.initialPoolSize}" />      <!--初始化连接池内的数据库连接-->
         <property name="maxIdleTime" value="${jdbc.maxIdleTime}" />  <!--最大空闲时间-->
 	</bean>
+	<!-- 配置第二个数据库连接，模拟动态切换多个数据库 -->
+	<bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />  <!--数据库连接驱动-->
+        <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:MYGIS" />     <!--数据库地址-->
+        <property name="user" value="gis" />   <!--用户名-->
+        <property name="password" value="gis" />   <!--密码-->
+        <property name="maxPoolSize" value="${jdbc.max_size}" />      <!--最大连接数-->
+        <property name="minPoolSize" value="${jdbc.min_size}" />       <!--最小连接数-->
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}" />      <!--初始化连接池内的数据库连接-->
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}" />  <!--最大空闲时间-->
+	</bean>
+	<!-- 配置多个数据库 -->
+	<bean id="dataSources" class="com.pb.datasourcewitch.DataSources">
+        <property name="defaultTargetDataSource" ref="dataSource"/> <!--默认主库-->
+        <property name="targetDataSources">
+            <map>
+                <entry key="dataSource" value-ref="dataSource"/>    <!--辅助aop完成自动数据库切换-->
+                <entry key="dataSource2" value-ref="dataSource2"/>
+            </map>
+        </property>
+    </bean>
 	
 	<!-- ================================MyBatis配置========================================== -->
 	<!-- 配置和mybatis的整合 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 指定mybatis配置文件位置 -->
 		<property name="configLocation" value="classpath:mybatis.xml"></property>
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="dataSources"></property>
 		<!-- 指定mybatis， mapper文件位置 -->
 		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 	</bean>
@@ -72,7 +96,6 @@
 			<tx:method name="get" read-only="true"/>
 		</tx:attributes>
 	</tx:advice>
-	
 	<aop:config>
 		<!-- 切入点表达式 -->
 		<aop:pointcut expression="execution(* com.pb.service..*(..))" id="txPoint"/>

@@ -27,6 +27,13 @@
 			<!-- 分页参数合理化 -->
 			<property name="reasonable" value="true"/>
 		</plugin>
+		<!-- 自定义插件 -->
+		<!-- 
+		<plugin interceptor="com.pb.interceptor.MyInterceptor">
+			<property name="username" value="admin"/>
+			<property name="password" value="123456"/>
+		</plugin>
+		 -->
 	</plugins>
 
 </configuration>

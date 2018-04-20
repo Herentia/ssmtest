@@ -248,4 +248,23 @@
       D_ID = #{dId,jdbcType=DECIMAL}
     where EMP_ID = #{empId,jdbcType=DECIMAL}
   </update>
+  
+  <!-- 调用存储过程 -->
+  <!-- 
+  <select id="getPageInfoByPro" statementType="CALLABLE">
+  	{call page_info(
+  		#{pageno, mode=IN, jdbcType=INTEGER}
+  		#{pagesize, mode=IN, jdbcType=INTEGER}
+  		#{total, mode=OUT, jdbcType=Integer}
+  		#{emps, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=}
+  	)}
+  </select>
+   -->
+   
+   <!-- 测试切换数据库 -->
+   <select id="getUserByData2" resultType="com.pb.bean.User">
+   	select u.id, u.no, u.name from User1 u where id = 462
+   </select>
+   
+   
 </mapper>

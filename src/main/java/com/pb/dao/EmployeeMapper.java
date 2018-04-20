@@ -2,8 +2,12 @@ package com.pb.dao;
 
 import com.pb.bean.Employee;
 import com.pb.bean.EmployeeExample;
+import com.pb.bean.User;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+import org.aspectj.lang.annotation.DeclareAnnotation;
 
 public interface EmployeeMapper {
     long countByExample(EmployeeExample example);
@@ -30,4 +34,8 @@ public interface EmployeeMapper {
     int updateByPrimaryKeySelective(Employee record);
 
     int updateByPrimaryKey(Employee record);
+    //
+    //²âÊÔÇÐ»»Êý¾Ý¿â
+    @DeclareAnnotation("dataSource2")
+    User getUserByData2();
 }
