@@ -17,6 +17,7 @@ import com.pb.bean.Employee;
 import com.pb.bean.User;
 import com.pb.dao.DepartmentMapper;
 import com.pb.dao.EmployeeMapper;
+import com.pb.datasourcewitch.DataSources;
 import com.pb.service.EmployeeService;
 
 /**
@@ -62,7 +63,8 @@ public class MapperTest {
 //		System.out.println(u1);
 		//测试切换数据库
 		User u = employeeService.getUserByData2();
-		System.out.println(u);
+		System.out.println("获取数据" + u);
+		DataSources.clearDataSource();
 	}
 
 }

@@ -36,6 +36,5 @@ public interface EmployeeMapper {
     int updateByPrimaryKey(Employee record);
     //
     //²âÊÔÇÐ»»Êý¾Ý¿â
-    @DeclareAnnotation("dataSource2")
     User getUserByData2();
 }

@@ -1,8 +1,13 @@
 package com.pb.datasourcewitch;
 
+import javax.sql.DataSource;
+
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.DeclareAnnotation;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,10 +23,14 @@ public class DataSourcesAspectAdvice {
 	public void pointCut() {}
 	
 	@Before(value = "pointCut()")
-	public void dataSource2Test() {
+	public void dataSource2Test(JoinPoint joinPoint) {
+		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+		String Name = methodSignature.getMethod().getAnnotation(DeclareAnnotation.class).value();
+		System.out.println(Name);
 		//将数据库连接切换成第二个数据库
 		System.out.println("开始切换到dataSource2数据库。。。");
 		DataSources.setDataSource("dataSource2");
+//		DataSources.clearDataSource();
 		
 		
 //		//获得目标方法标签

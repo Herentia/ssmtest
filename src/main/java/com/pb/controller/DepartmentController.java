@@ -21,12 +21,12 @@ import com.pb.service.DepartmentService;
 public class DepartmentController {
 	
 	@Autowired
-	private DepartmentService deptService;
+	private DepartmentService departmentService;
 	
 	@RequestMapping(value="/depts", method=RequestMethod.GET)
 	@ResponseBody
 	public Msg getDepts() {
-		List<Department> depts = deptService.getDepts();
+		List<Department> depts = departmentService.getDepts();
 		return Msg.success().add("depts", depts);
 	}
 	

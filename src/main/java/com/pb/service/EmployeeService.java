@@ -2,6 +2,7 @@ package com.pb.service;
 
 import java.util.List;
 
+import org.aspectj.lang.annotation.DeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class EmployeeService {
 	/**
 	 * 测试切换动态切换到第二个数据库
 	 */
+	@DeclareAnnotation("dataSource2")
 	public User getUserByData2() {
 		return empmapper.getUserByData2();
 	}

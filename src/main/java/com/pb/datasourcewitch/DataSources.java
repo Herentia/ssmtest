@@ -16,6 +16,7 @@ public class DataSources extends AbstractRoutingDataSource {
 	}
 	
 	public static void clearDataSource() {
+		System.out.println("Çå¿ÕÇÐ»»Êý¾Ý¿â¡£¡£¡£");
 		dataSourceHandler.remove();
 	}
 
