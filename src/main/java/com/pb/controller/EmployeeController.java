@@ -21,7 +21,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pb.bean.Employee;
 import com.pb.bean.Msg;
-import com.pb.dao.EmployeeMapper;
 import com.pb.service.EmployeeService;
 
 /***
@@ -50,7 +49,7 @@ public class EmployeeController {
 		List<Employee> emps = empService.getAll();
 		//查询后将结果用PageInfo进行包装,第二个参数为需要连续显示的页面
 		//将PageInfo交给页面，里面封装了分页详细信息
-		PageInfo page = new PageInfo(emps, 5);
+		PageInfo<Employee> page = new PageInfo<Employee>(emps, 5);
 		return Msg.success().add("pageInfo", page);
 	}
 	
@@ -66,7 +65,7 @@ public class EmployeeController {
 		List<Employee> emps = empService.getAll();
 		//查询后将结果用PageInfo进行包装,第二个参数为需要连续显示的页面
 		//将PageInfo交给页面，里面封装了分页详细信息
-		PageInfo page = new PageInfo(emps, 5);
+		PageInfo<Employee> page = new PageInfo<Employee>(emps, 5);
 		model.addAttribute("pageInfo", page);
 		return "list";
 	}

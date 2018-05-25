@@ -149,7 +149,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						
 					</tbody>
 				</table>
 			</div>
@@ -176,9 +175,10 @@
 				url: "emps",
 				data: "pn=" + pn,
 				type: "get",
-				success: function(result) {
-					console.log(result);
-					var r = eval('(' + result + ')');
+				dataType: "json",
+				success: function(r) {
+					console.log(r);
+					//var r = eval('(' + result + ')');
 					//1、解析并显示员工数据
 					build_emps_table(r);
 					//2、显示分页信息

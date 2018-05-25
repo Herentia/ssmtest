@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author haohan
  *
  */
-@Aspect
+//@Aspect
 @Component
 public class DataSourcesAspectAdvice {
 	
@@ -29,7 +29,7 @@ public class DataSourcesAspectAdvice {
 		System.out.println(Name);
 		//将数据库连接切换成第二个数据库
 		System.out.println("开始切换到dataSource2数据库。。。");
-		DataSources.setDataSource("dataSource2");
+		DataSources.setDataSource(Name);
 //		DataSources.clearDataSource();
 		
 		

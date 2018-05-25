@@ -50,7 +50,7 @@ public class MapperTest {
 		//插入员工
 //		employeeMapper.insertSelective(new Employee(null, "jay", "M", "jay@163.com", 3));
 		
-		//批量插入员工
+//		批量插入员工
 //		EmployeeMapper  empmapper = sqlsession.getMapper(EmployeeMapper.class);
 //		for(int i = 0; i < 500; i++) {
 //			String name = UUID.randomUUID().toString().substring(0, 5) + i;
@@ -61,6 +61,7 @@ public class MapperTest {
 //		EmployeeService es = ctx.getBean(EmployeeService.class);
 //		User u1 = es.getUserByData2();
 //		System.out.println(u1);
+		
 		//测试切换数据库
 		User u = employeeService.getUserByData2();
 		System.out.println("获取数据" + u);
